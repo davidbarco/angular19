@@ -8,6 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { ButtonComponent } from "../button/button.component";
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { SpinnerComponent } from "../spinner/spinner.component";
 
 @Component({
   selector: 'app-form-login',
@@ -20,12 +21,14 @@ import { CommonModule } from '@angular/common';
     CommonModule,
     MatIconModule,
     ButtonComponent,
-  ],
+    SpinnerComponent
+],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './form-login.component.html',
   styleUrls: ['./form-login.component.scss'],
 })
 export class FormLoginComponent {
+  spinner: boolean = false;
   errorMessage = signal('');
   hide = signal(true);
 
@@ -59,9 +62,11 @@ export class FormLoginComponent {
 
   onSubmit() {
     if (this.form.valid) {
+      this.spinner = true;
       console.log('Datos del formulario:', this.form.getRawValue());
       this.router.navigateByUrl('/app');
     } else {
+      this.spinner = false
       console.error('Formulario inválido');
     }
   }
