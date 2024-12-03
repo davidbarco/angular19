@@ -29,7 +29,7 @@ import { AuthService } from '../../services/auth.service';
   styleUrls: ['./form-login.component.scss'],
 })
 export class FormLoginComponent {
-  spinner: boolean = false;
+  spinner = signal(false); 
   errorMessage = signal('');
   hide = signal(true);
 
@@ -64,17 +64,19 @@ export class FormLoginComponent {
 
   onSubmit() {
     if (this.form.valid) {
-      this.spinner = true;
+      this.spinner.set(true);
       const { email, password } = this.form.getRawValue();
       this.authService
         .login(email, password)
         .then(() => {
-          this.spinner = false;
+          this.spinner.set(false);
           this.router.navigate(['/app']); // Cambia según tu ruta
         })
         .catch((error) => {
-          this.spinner = false;
           console.error('Error de autenticación:', error);
+        })
+        .finally(() => {
+          this.spinner.set(false);  // Siempre desactiva el spinner
         });
     } else {
       console.error('Formulario inválido');
