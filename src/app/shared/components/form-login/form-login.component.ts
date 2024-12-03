@@ -9,6 +9,7 @@ import { ButtonComponent } from "../button/button.component";
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { SpinnerComponent } from "../spinner/spinner.component";
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-form-login',
@@ -38,7 +39,8 @@ export class FormLoginComponent {
   });
 
   constructor(
-    private router: Router
+    private router: Router,
+    private authService: AuthService,
   ) {
     // Validar email en tiempo real
     this.form.get('email')?.statusChanges.pipe(takeUntilDestroyed()).subscribe(() => this.updateErrorMessage());
@@ -63,10 +65,18 @@ export class FormLoginComponent {
   onSubmit() {
     if (this.form.valid) {
       this.spinner = true;
-      console.log('Datos del formulario:', this.form.getRawValue());
-      this.router.navigateByUrl('/app');
+      const { email, password } = this.form.getRawValue();
+      this.authService
+        .login(email, password)
+        .then(() => {
+          this.spinner = false;
+          this.router.navigate(['/app']); // Cambia según tu ruta
+        })
+        .catch((error) => {
+          this.spinner = false;
+          console.error('Error de autenticación:', error);
+        });
     } else {
-      this.spinner = false
       console.error('Formulario inválido');
     }
   }
