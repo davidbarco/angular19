@@ -1,54 +1,60 @@
-<div class="flex justify-center w-full p-5 h-full">
-  <div class="w-[500px] h-[500px] bg-white flex flex-col">
-    <div class="w-[500px] h-[200px] flex justify-center">
-      <app-logo></app-logo>
-    </div>
-    <div class="pt-3 flex justify-center">
-      <h1>Inicio de sesión</h1>
-      <!-- correo electronico -->
-    </div>
-
-    <form [formGroup]="form" (ngSubmit)="onSubmit()">
-      <div class="pt-3 flex flex-col items-center justify-center">
-      <div class="example-container flex flex-col justify-center w-[60%]">
-        <mat-form-field class="w-full">
-          <mat-label>Correo eléctronico</mat-label>
-          <input
-            matInput
-            placeholder="email@example.com"
-            formControlName="email"
-            (blur)="updateErrorMessage()"
-            required="false"
-          />
-          @if (form.get('email')?.invalid) {
-            <mat-error>{{errorMessage()}}</mat-error>
-          }
-        </mat-form-field>
-
-
-        <mat-form-field class="w-full">
-          <mat-label>Contraseña</mat-label>
-          <input required="false" formControlName="password" matInput [type]="hide() ? 'password' : 'text'" />
-          <button
-            mat-icon-button
-            matSuffix
-            (click)="togglePasswordVisibility($event)"
-            [attr.aria-label]="'Hide password'"
-            [attr.aria-pressed]="hide()"
-          >
-            <mat-icon>{{hide() ? 'visibility_off' : 'visibility'}}</mat-icon>
-          </button>
-        </mat-form-field>
-
-      </div>
-      <!-- boton -->
-       <div class="w-[60%] h-[56px]">
-         <app-button type="submit" color="primary" name="Inicio de Sesión"></app-button>
-       </div>
-    </div>
-  </form>
-
-
+@if(spinner){
+  <div class="flex justify-center w-full h-full items-center">
+    <app-spinner></app-spinner>
   </div>
-
-</div>
+}@else{
+  <div class="flex justify-center w-full p-5 h-full">
+    <div class="w-[500px] h-[500px] bg-white flex flex-col">
+      <div class="w-[500px] h-[200px] flex justify-center">
+        <app-logo></app-logo>
+      </div>
+      <div class="pt-3 flex justify-center">
+        <h1>Inicio de sesión</h1>
+        <!-- correo electronico -->
+      </div>
+  
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="pt-3 flex flex-col items-center justify-center">
+        <div class="example-container flex flex-col justify-center w-[60%]">
+          <mat-form-field class="w-full">
+            <mat-label>Correo eléctronico</mat-label>
+            <input
+              matInput
+              placeholder="email@example.com"
+              formControlName="email"
+              (blur)="updateErrorMessage()"
+              required="false"
+            />
+            @if (form.get('email')?.invalid) {
+              <mat-error>{{errorMessage()}}</mat-error>
+            }
+          </mat-form-field>
+  
+  
+          <mat-form-field class="w-full">
+            <mat-label>Contraseña</mat-label>
+            <input required="false" formControlName="password" matInput [type]="hide() ? 'password' : 'text'" />
+            <button
+              mat-icon-button
+              matSuffix
+              (click)="togglePasswordVisibility($event)"
+              [attr.aria-label]="'Hide password'"
+              [attr.aria-pressed]="hide()"
+            >
+              <mat-icon>{{hide() ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+          </mat-form-field>
+  
+        </div>
+        <!-- boton -->
+         <div class="w-[60%] h-[56px]">
+           <app-button type="submit" color="primary" name="Inicio de Sesión"></app-button>
+         </div>
+      </div>
+    </form>
+  
+  
+    </div>
+  
+  </div>
+}
