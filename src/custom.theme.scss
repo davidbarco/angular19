@@ -1,0 +1,51 @@
+
+@use '@angular/material' as mat;
+
+// Definición de la paleta de colores personalizada
+$primary-palette: mat.m2-define-palette((
+  50: #e3edf0,
+  100: #b9d3d9,
+  200: #8ab6c0,
+  300: #5b99a7,
+  400: #378394,
+  500: #146d81, // Color principal
+  600: #126579,
+  700: #0e5a6e,
+  800: #0b5064,
+  900: #063e51,
+  A100: #85dbff,
+  A200: #52cbff,
+  A400: #1fbcff,
+  A700: #05b5ff,
+  contrast: (
+    50: #000000,
+    100: #000000,
+    200: #000000,
+    300: #000000,
+    400: #ffffff,
+    500: #ffffff, // Contraste del color principal
+    600: #ffffff,
+    700: #ffffff,
+    800: #ffffff,
+    900: #ffffff,
+    A100: #000000,
+    A200: #000000,
+    A400: #000000,
+    A700: #000000,
+  )
+));
+
+// Definición del tema personalizado
+$custom-theme: mat.m2-define-light-theme((
+  color: (
+    primary: $primary-palette, // Color primario personalizado
+    accent: mat.m2-define-palette(mat.$m2-pink-palette, A200, A100, A400), // Paleta de acento (puedes personalizarla también)
+    warn: mat.m2-define-palette(mat.$m2-red-palette), // Paleta de advertencia (rojo predeterminado)
+  ),
+  typography: mat.m2-define-typography-config(), // Configuración de tipografía predeterminada de Material
+));
+
+
+// Aplicar los estilos a todos los componentes de Angular Material
+@include mat.all-component-themes($custom-theme);
+
