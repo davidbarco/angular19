@@ -10,6 +10,10 @@ import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { SpinnerComponent } from "../spinner/spinner.component";
 import { AuthService } from '../../services/auth.service';
+import { ModalComponent } from '../modal/modal.component';
+import { MatDialog } from '@angular/material/dialog';
+import {ModalIcon } from '../../enum/modal.enum';
+
 
 @Component({
   selector: 'app-form-login',
@@ -41,6 +45,7 @@ export class FormLoginComponent {
   constructor(
     private router: Router,
     private authService: AuthService,
+    private dialog: MatDialog
   ) {
     // Validar email en tiempo real
     this.form.get('email')?.statusChanges.pipe(takeUntilDestroyed()).subscribe(() => this.updateErrorMessage());
@@ -62,6 +67,13 @@ export class FormLoginComponent {
     event.stopPropagation();
   }
 
+  openModal(icon: ModalIcon, title: string, text: string, buttonText: string) {
+    this.dialog.open(ModalComponent, {
+      width: '450px',
+      data: { title, text, buttonText, icon } // Enviar datos al modal
+    });
+  }
+
   onSubmit() {
     if (this.form.valid) {
       this.spinner.set(true);
@@ -70,16 +82,19 @@ export class FormLoginComponent {
         .login(email, password)
         .then(() => {
           this.spinner.set(false);
+          this.openModal(ModalIcon.Success, "Registro con éxito", "Bienvenido", "Aceptar");
           this.router.navigate(['/app']); // Cambia según tu ruta
         })
         .catch((error) => {
-          console.error('Error de autenticación:', error);
+          this.openModal(ModalIcon.Error, "Error", "Credenciales invalidas", "Aceptar");
+          //console.error('Error de autenticación:', error);
         })
         .finally(() => {
           this.spinner.set(false);  // Siempre desactiva el spinner
         });
     } else {
-      console.error('Formulario inválido');
+      this.openModal(ModalIcon.Error, "Ha ocurrido un error", "Formulario invalido", "Aceptar");
+      //console.error('Formulario inválido');
     }
   }
 }
