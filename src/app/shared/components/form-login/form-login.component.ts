@@ -9,6 +9,11 @@ import { ButtonComponent } from "../button/button.component";
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { SpinnerComponent } from "../spinner/spinner.component";
+import { AuthService } from '../../services/auth.service';
+import { ModalComponent } from '../modal/modal.component';
+import { MatDialog } from '@angular/material/dialog';
+import {ModalIcon } from '../../enum/modal.enum';
+
 
 @Component({
   selector: 'app-form-login',
@@ -28,7 +33,7 @@ import { SpinnerComponent } from "../spinner/spinner.component";
   styleUrls: ['./form-login.component.scss'],
 })
 export class FormLoginComponent {
-  spinner: boolean = false;
+  spinner = signal(false); 
   errorMessage = signal('');
   hide = signal(true);
 
@@ -38,7 +43,9 @@ export class FormLoginComponent {
   });
 
   constructor(
-    private router: Router
+    private router: Router,
+    private authService: AuthService,
+    private dialog: MatDialog
   ) {
     // Validar email en tiempo real
     this.form.get('email')?.statusChanges.pipe(takeUntilDestroyed()).subscribe(() => this.updateErrorMessage());
@@ -60,14 +67,34 @@ export class FormLoginComponent {
     event.stopPropagation();
   }
 
+  openModal(icon: ModalIcon, title: string, text: string, buttonText: string) {
+    this.dialog.open(ModalComponent, {
+      width: '450px',
+      data: { title, text, buttonText, icon } // Enviar datos al modal
+    });
+  }
+
   onSubmit() {
     if (this.form.valid) {
-      this.spinner = true;
-      console.log('Datos del formulario:', this.form.getRawValue());
-      this.router.navigateByUrl('/app');
+      this.spinner.set(true);
+      const { email, password } = this.form.getRawValue();
+      this.authService
+        .login(email, password)
+        .then(() => {
+          this.spinner.set(false);
+          this.openModal(ModalIcon.Success, "Registro con éxito", "Bienvenido", "Aceptar");
+          this.router.navigate(['/app']); // Cambia según tu ruta
+        })
+        .catch((error) => {
+          this.openModal(ModalIcon.Error, "Error", "Credenciales invalidas", "Aceptar");
+          //console.error('Error de autenticación:', error);
+        })
+        .finally(() => {
+          this.spinner.set(false);  // Siempre desactiva el spinner
+        });
     } else {
-      this.spinner = false
-      console.error('Formulario inválido');
+      this.openModal(ModalIcon.Error, "Ha ocurrido un error", "Formulario invalido", "Aceptar");
+      //console.error('Formulario inválido');
     }
   }
 }
