@@ -1,5 +1,12 @@
-<app-title [title]="'Peliculas'"></app-title>
+@if(spinner()){
+  <div class="flex justify-center w-full h-full items-center">
+    <app-spinner></app-spinner>
+  </div>
+}@else {
+  <app-title [title]="'Peliculas'"></app-title>
 
-<div class="h-full">
-  <app-card-catalog></app-card-catalog>
-</div>
+  <div class="h-full">
+    <app-card-catalog [movie]="movies()"></app-card-catalog>
+  </div>
+}
+
