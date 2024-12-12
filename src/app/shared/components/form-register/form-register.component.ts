@@ -14,25 +14,23 @@ import { ModalComponent } from '../modal/modal.component';
 import { MatDialog } from '@angular/material/dialog';
 import {ModalIcon } from '../../enum/modal.enum';
 
-
 @Component({
-  selector: 'app-form-login',
-  standalone: true,
+  selector: 'app-form-register',
   imports: [
-    LogoComponent,
-    MatFormFieldModule,
-    MatInputModule,
-    ReactiveFormsModule,
-    CommonModule,
-    MatIconModule,
-    ButtonComponent,
-    SpinnerComponent
-],
+      LogoComponent,
+      MatFormFieldModule,
+      MatInputModule,
+      ReactiveFormsModule,
+      CommonModule,
+      MatIconModule,
+      ButtonComponent,
+      SpinnerComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  templateUrl: './form-login.component.html',
-  styleUrls: ['./form-login.component.scss'],
+  templateUrl: './form-register.component.html',
+  styleUrl: './form-register.component.css'
 })
-export class FormLoginComponent {
+export class FormRegisterComponent {
+
   spinner = signal(false);
   errorMessage = signal('');
   hide = signal(true);
@@ -79,11 +77,11 @@ export class FormLoginComponent {
       this.spinner.set(true);
       const { email, password } = this.form.getRawValue();
       this.authService
-        .login(email, password)
+        .register(email, password)
         .then(() => {
           this.spinner.set(false);
-          this.openModal(ModalIcon.Success, "Registro con éxito", "Bienvenido", "Aceptar");
-          this.router.navigate(['/app']); // Cambia según tu ruta
+          this.openModal(ModalIcon.Success, "Registro con éxito", "ya puedes iniciar sesión", "Aceptar");
+          this.router.navigate(['/signin']); // Cambia según tu ruta
         })
         .catch((error) => {
           this.openModal(ModalIcon.Error, "Error", "Credenciales invalidas", "Aceptar");
@@ -98,7 +96,8 @@ export class FormLoginComponent {
     }
   }
 
-  register(){
-    this.router.navigate(['/register']);
+  session(){
+    this.router.navigate(['/signin']);
   }
+
 }

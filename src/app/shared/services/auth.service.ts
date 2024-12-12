@@ -9,7 +9,7 @@ export class AuthService {
   constructor(private auth: Auth, private router: Router) {}
 
   // Registrar usuario
-  register(email: string, password: string) {
+  register(email: any, password: any) {
     return createUserWithEmailAndPassword(this.auth, email, password);
   }
 
@@ -21,7 +21,7 @@ export class AuthService {
         localStorage.setItem('authToken', token);
       });
   }
-  
+
 
   // Cerrar sesión
   logout() {

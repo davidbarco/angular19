@@ -35,11 +35,45 @@ $primary-palette: mat.m2-define-palette((
   )
 ));
 
+$secondary-palette: mat.m2-define-palette((
+  50: #e6f7db,
+  100: #c0eeb1,
+  200: #96e484,
+  300: #6bda55,
+  400: #4fd132,
+  500: #3db81b, // Color principal
+  600: #35a317,
+  700: #2c8b12,
+  800: #24740e,
+  900: #185108,
+  A100: #b6ff8f,
+  A200: #89ff5e,
+  A400: #5cff2d,
+  A700: #44ff14,
+  contrast: (
+    50: #000000,
+    100: #000000,
+    200: #000000,
+    300: #000000,
+    400: #ffffff,
+    500: #ffffff, // Contraste del color principal
+    600: #ffffff,
+    700: #ffffff,
+    800: #ffffff,
+    900: #ffffff,
+    A100: #000000,
+    A200: #000000,
+    A400: #000000,
+    A700: #000000,
+  )
+));
+
+
 // Definición del tema personalizado
 $custom-theme: mat.m2-define-light-theme((
   color: (
     primary: $primary-palette, // Color primario personalizado
-    accent: mat.m2-define-palette(mat.$m2-pink-palette, A200, A100, A400), // Paleta de acento (puedes personalizarla también)
+    accent: $secondary-palette, // Paleta de acento (puedes personalizarla también)
     warn: mat.m2-define-palette(mat.$m2-red-palette), // Paleta de advertencia (rojo predeterminado)
   ),
   typography: mat.m2-define-typography-config(), // Configuración de tipografía predeterminada de Material
