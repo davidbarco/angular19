@@ -83,7 +83,7 @@ export class FormLoginComponent {
         .then(() => {
           this.spinner.set(false);
           this.openModal(ModalIcon.Success, "Registro con éxito", "Bienvenido", "Aceptar");
-          this.router.navigate(['/app']); // Cambia según tu ruta
+          this.router.navigate(['/app/catalog']); // Cambia según tu ruta
         })
         .catch((error) => {
           this.openModal(ModalIcon.Error, "Error", "Credenciales invalidas", "Aceptar");
