@@ -24,7 +24,7 @@ export class PaginationComponent {
   }
 
   get pages(): number[] {
-    const maxPagesToShow = 5; // Número máximo de páginas visibles
+    const maxPagesToShow = 3; // Número máximo de páginas visibles
     const half = Math.floor(maxPagesToShow / 2);
     let start = Math.max(1, this.currentPage - half);
     let end = Math.min(this.totalPages, start + maxPagesToShow - 1);
