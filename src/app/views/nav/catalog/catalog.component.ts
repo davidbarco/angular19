@@ -5,39 +5,53 @@ import { CatalogService } from './services/catalog.service';
 import { finalize } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { SpinnerComponent } from "../../../shared/components/spinner/spinner.component";
+import { PaginationComponent } from "../../../shared/components/pagination/pagination.component";
 
 @Component({
   selector: 'app-catalog',
-  imports: [CardCatalogComponent, TitleComponent, SpinnerComponent],
+  standalone: true,
+  imports: [CardCatalogComponent, TitleComponent, SpinnerComponent, PaginationComponent],
   templateUrl: './catalog.component.html',
-  styleUrl: './catalog.component.css'
+  styleUrls: ['./catalog.component.css']
 })
 export class CatalogComponent implements OnInit {
-
   movies = signal<any[]>([]);
   spinner = signal(false);
+  totalPages = signal<number>(0);
+  totalResults = signal<number>(0);
+  currentPage = signal<number>(1);
 
-  private movieService = inject(CatalogService)
-  private _destroyRef: DestroyRef = inject(DestroyRef)
+  private movieService = inject(CatalogService);
+  private _destroyRef: DestroyRef = inject(DestroyRef);
 
   ngOnInit(): void {
-    this.loadNowPlayingMovies();
+    this.loadNowPlayingMovies(this.currentPage());
   }
 
-  private loadNowPlayingMovies() {
+  onPageChange(page: number): void {
+    this.currentPage.set(page); // Actualiza la página actual
+    this.loadNowPlayingMovies(page); // Carga las películas de la nueva página
+  }
+
+  private loadNowPlayingMovies(page: number): void {
     this.spinner.set(true);
-    this.movieService.getNowPlaying().pipe(
-      finalize(() => this.spinner.set(false)),
-      takeUntilDestroyed(this._destroyRef))
+    this.movieService
+      .getNowPlaying(page) // Asegúrate de que el servicio acepte un parámetro `page`
+      .pipe(
+        finalize(() => this.spinner.set(false)),
+        takeUntilDestroyed(this._destroyRef)
+      )
       .subscribe({
-      next: (response) => {
-        this.movies.set(response.results); // Asume que la API devuelve un array en `results`.
-        console.log('Movies:', this.movies());
-      },
-      error: (error) => {
-        console.error('Error loading movies:', error);
-      },
-    });
+        next: (response) => {
+          this.totalPages.set(response.total_pages);
+          this.totalResults.set(response.total_results);
+          this.currentPage.set(response.page);
+          this.movies.set(response.results); // Actualiza la lista de películas
+          //console.log('Movies:', this.movies());
+        },
+        error: (error) => {
+          console.error('Error loading movies:', error);
+        },
+      });
   }
-
 }

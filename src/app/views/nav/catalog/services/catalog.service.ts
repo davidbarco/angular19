@@ -17,8 +17,8 @@ export class CatalogService {
   constructor(private http: HttpClient) { }
 
   // Método para obtener películas en cartelera
-  getNowPlaying(): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/${environment.endpoints.movie}/${environment.endpoints.now_playing}`, this.httpOptions);
+  getNowPlaying(page: number = 1): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/${environment.endpoints.movie}/${environment.endpoints.now_playing}?page=${page}`, this.httpOptions);
   }
 
 }

@@ -8,5 +8,12 @@
   <div class="h-full">
     <app-card-catalog [movie]="movies()"></app-card-catalog>
   </div>
+
+  <app-pagination
+  [totalItems]="totalPages()"
+  [currentPage]="currentPage()"
+  (pageChange)="onPageChange($event)">
+</app-pagination>
+
 }
 
