@@ -1,8 +1,16 @@
-<!-- poster -->
-<app-poster-detail [image]="'https://image.tmdb.org/t/p/w220_and_h330_face//3V4kLQg0kSqPLctI5ziYWabAZYF.jpg'"></app-poster-detail>
+@if(spinner()){
+  <div class="flex justify-center w-full h-full items-center">
+    <app-spinner></app-spinner>
+  </div>
+}@else {
+  <!-- poster -->
+  <app-poster-detail [imageBack]="movie().backdrop_path" [image]="'https://image.tmdb.org/t/p/w220_and_h330_face' + movie().poster_path"></app-poster-detail>
 
-<div class="mt-6">
-  <app-title [title]="'Venom: The Last Dance'"></app-title>
-</div>
+  <div class="mt-6">
+    <app-title [title]="movie().original_title"></app-title>
+  </div>
 
-<p class="mt-6 text-white">Eddie and Venom are on the run. Hunted by both of their worlds and with the net closing in, the duo are forced into a devastating decision that will bring the curtains down on Venom and Eddie's last dance.</p>
+  <p class="mt-6 text-white">{{movie().overview}}</p>
+
+
+}
