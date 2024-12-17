@@ -8,14 +8,18 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { map, Observable, startWith } from 'rxjs';
+import {MatDatepickerModule} from "@angular/material/datepicker";
+import { provideNativeDateAdapter } from '@angular/material/core';
 
 @Component({
   selector: 'app-home',
+  providers: [provideNativeDateAdapter()],
   imports: [MatFormFieldModule, MatSelectModule, ReactiveFormsModule, MatSlideToggleModule,
     MatButtonModule,
     FormsModule,
     MatInputModule,
     MatAutocompleteModule,
+    MatDatepickerModule,
     AsyncPipe],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './home.component.html',

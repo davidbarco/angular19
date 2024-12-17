@@ -1,5 +1,5 @@
-<div class="flex justify-center p-9">
-  <form class="example-form">
+<div class="flexjustify-center p-9">
+  <form class="example-form flex flex-col">
     <mat-form-field class="example-full-width">
       <mat-label>Number</mat-label>
       <input type="text"
@@ -13,6 +13,13 @@
           <mat-option [value]="option">{{option}}</mat-option>
         }
       </mat-autocomplete>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Fecha</mat-label>
+      <input title="Fecha" matInput [matDatepicker]="picker">
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
   </form>
 </div>
