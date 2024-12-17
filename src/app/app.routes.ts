@@ -1,5 +1,7 @@
 import { Routes } from '@angular/router';
 import { NavLayoutComponent } from './shared/components/layouts/nav-layout/nav-layout/nav-layout/nav-layout.component';
+import { authGuard } from './shared/guards/auth.guard';
+import { NotFoundComponent } from './views/not-found/not-found.component';
 
 
 
@@ -8,12 +10,12 @@ import { NavLayoutComponent } from './shared/components/layouts/nav-layout/nav-l
 export const routes: Routes = [
   {
     path: '',
-    //canActivate: [UserIsNotLoggedIn],  //luego cambiarlo por el redirect platzi.
+    canActivate: [authGuard],
     loadChildren: () => import('./views/sessions/sessions.routes').then((m) => m.sessionsRoutes),
   },
   {
     path: 'app',
-    //canActivate: [UserIsLoggedIn],
+    canActivate: [authGuard],
     component: NavLayoutComponent,
     children: [
       {
@@ -23,4 +25,9 @@ export const routes: Routes = [
       }
     ],
   },
+  {
+    path: '**',
+    component: NotFoundComponent,
+    title: 'Página no encontrada'
+  }
 ];

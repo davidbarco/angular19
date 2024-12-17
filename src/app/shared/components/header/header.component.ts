@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { Router, RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { LogoComponent } from "../logo/logo.component";
+import { AuthService } from '../../services/auth.service';
 
 
 @Component({
@@ -14,7 +15,7 @@ export class HeaderComponent implements OnInit {
 
 
   constructor(
-    private router: Router
+    private authService: AuthService,
   ) {
 
   }
@@ -24,7 +25,7 @@ export class HeaderComponent implements OnInit {
 
 
   cerrarSesion(){
-    this.router.navigateByUrl('/signin');
+    this.authService.logout();
   }
 
 
