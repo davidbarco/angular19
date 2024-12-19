@@ -4,7 +4,7 @@
   </div>
 }@else{
   <div class="flex justify-center w-full p-5 h-full">
-    <div class="w-[500px] h-[500px] bg-white flex flex-col">
+    <div class="w-[500px] h-[591px] bg-white flex flex-col">
       <div class="w-full h-[200px] flex justify-center">
         <app-logo></app-logo>
       </div>
@@ -46,16 +46,19 @@
           </mat-form-field>
 
         </div>
+        <div (click)="openDialogForgot()" class="w-[100%] h-[56px] text-end text-[#146d81] cursor-pointer hover:underline">
+          <p>¿Has olvidado la contraseña?</p>
+        </div>
         <!-- boton -->
          <div class="w-[100%] h-[56px]">
            <app-button type="submit" color="primary" name="Inicio de Sesión"></app-button>
          </div>
 
-         <div class="w-[100%] h-[56px] mt-5">
-          <app-button (click)="register()" type="submit" color="accent" name="Crear cuenta nueva"></app-button>
         </div>
-      </div>
-    </form>
+      </form>
+      <div class="w-[100%] h-[56px] mt-5">
+       <app-button (click)="register()" color="accent" name="Crear cuenta nueva"></app-button>
+     </div>
 
 
     </div>

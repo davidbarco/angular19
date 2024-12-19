@@ -13,6 +13,7 @@ import { AuthService } from '../../services/auth.service';
 import { ModalComponent } from '../modal/modal.component';
 import { MatDialog } from '@angular/material/dialog';
 import {ModalIcon } from '../../enum/modal.enum';
+import { ModalForgotPasswordComponent } from '../modal-forgot-password/modal-forgot-password.component';
 
 
 @Component({
@@ -71,6 +72,16 @@ export class FormLoginComponent {
     this.dialog.open(ModalComponent, {
       width: '450px',
       data: { title, text, buttonText, icon } // Enviar datos al modal
+    });
+  }
+
+  openDialogForgot() {
+    this.dialog.open(ModalForgotPasswordComponent, {
+      disableClose: true,
+      width: '450px',
+      data: {
+        //card: card,
+      },
     });
   }
 
