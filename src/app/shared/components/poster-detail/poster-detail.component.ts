@@ -8,7 +8,7 @@ import { Component, Input } from '@angular/core';
   styleUrl: './poster-detail.component.css'
 })
 export class PosterDetailComponent {
-  @Input() imageBack: string = '';
+  @Input() imageBack: string | undefined = '';
   @Input() image!: string
 
 }

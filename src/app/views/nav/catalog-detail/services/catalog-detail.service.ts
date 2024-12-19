@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../../../../environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { MovieDetailModel } from '../../../../shared/interfaces/detail.movie.model';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,7 @@ export class CatalogDetailService {
     constructor(private http: HttpClient) { }
 
     // Método para obtener el detalle de una pelicula
-    getMovieDetails(id: string): Observable<any> {
-      return this.http.get<any>(`${this.apiUrl}/${environment.endpoints.movie}/${id}`, this.httpOptions);
+    getMovieDetails(id: string): Observable<MovieDetailModel> {
+      return this.http.get<MovieDetailModel>(`${this.apiUrl}/${environment.endpoints.movie}/${id}`, this.httpOptions);
     }
 }

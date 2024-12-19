@@ -7,6 +7,6 @@ import { Component, Input } from '@angular/core';
   styleUrl: './title.component.css'
 })
 export class TitleComponent {
-  @Input({required:true}) title!: string;
+  @Input({required:true}) title!: string | undefined;
 
 }

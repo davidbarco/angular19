@@ -6,6 +6,7 @@ import { CatalogDetailService } from './services/catalog-detail.service';
 import { finalize } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { SpinnerComponent } from "../../../shared/components/spinner/spinner.component";
+import { MovieDetailModel } from '../../../shared/interfaces/detail.movie.model';
 
 @Component({
   selector: 'app-catalog-detail',
@@ -14,7 +15,7 @@ import { SpinnerComponent } from "../../../shared/components/spinner/spinner.com
   styleUrl: './catalog-detail.component.css'
 })
 export class CatalogDetailComponent implements OnInit {
-  movie = signal<any>([]);
+  movie = signal<MovieDetailModel | null>(null);
   spinner = signal(false);
 
   private route = inject(ActivatedRoute);

@@ -4,13 +4,13 @@
   </div>
 }@else {
   <!-- poster -->
-  <app-poster-detail [imageBack]="movie().backdrop_path" [image]="'https://image.tmdb.org/t/p/w220_and_h330_face' + movie().poster_path"></app-poster-detail>
+  <app-poster-detail [imageBack]="movie()?.backdrop_path" [image]="'https://image.tmdb.org/t/p/w220_and_h330_face' + movie()?.poster_path"></app-poster-detail>
 
   <div class="mt-6">
-    <app-title [title]="movie().original_title"></app-title>
+    <app-title [title]="movie()?.original_title"></app-title>
   </div>
 
-  <p class="mt-6 text-white">{{movie().overview}}</p>
+  <p class="mt-6 text-white">{{movie()?.overview}}</p>
 
 
 }

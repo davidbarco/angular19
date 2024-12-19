@@ -1,6 +1,6 @@
 <div class="flex justify-around flex-wrap gap-4 h-full">
 
-@for (item of movie; track item.id)
+@for (item of movie.results; track item.id)
  {<div class="w-[139px] h-[100%] bg-white border border-gray-200 rounded-lg dark:bg-gray-800 dark:border-gray-700" style="box-shadow: 0px 0px 10px -2px black;">
   <a>
       <img width="100%" class="rounded-t-lg" [src]="'https://media.themoviedb.org/t/p/w220_and_h330_face/' + item.poster_path" alt="" />

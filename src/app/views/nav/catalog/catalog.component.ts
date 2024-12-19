@@ -6,6 +6,7 @@ import { finalize } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { SpinnerComponent } from "../../../shared/components/spinner/spinner.component";
 import { PaginationComponent } from "../../../shared/components/pagination/pagination.component";
+import { MovieResponseModel } from '../../../shared/interfaces/catalog-movie.model';
 
 @Component({
   selector: 'app-catalog',
@@ -15,7 +16,7 @@ import { PaginationComponent } from "../../../shared/components/pagination/pagin
   styleUrls: ['./catalog.component.css']
 })
 export class CatalogComponent implements OnInit {
-  movies = signal<any[]>([]);
+  movies = signal<MovieResponseModel | null>(null);
   spinner = signal(false);
   totalPages = signal<number>(0);
   totalResults = signal<number>(0);
@@ -46,7 +47,7 @@ export class CatalogComponent implements OnInit {
           this.totalPages.set(response.total_pages);
           this.totalResults.set(response.total_results);
           this.currentPage.set(response.page);
-          this.movies.set(response.results); // Actualiza la lista de películas
+          this.movies.set(response); // Actualiza la lista de películas
           //console.log('Movies:', this.movies());
         },
         error: (error) => {
