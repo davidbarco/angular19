@@ -9,17 +9,17 @@ import { MovieResponseModel } from '../../../../shared/interfaces/catalog-movie.
 })
 export class CatalogService {
   private apiUrl = `${environment.apiBaseUrlMovie}`;
-  private httpOptions = {
+  /* private httpOptions = {
     headers: new HttpHeaders({
       Authorization: environment.apiTokenMovie,
     }),
-  };
+  }; */
 
   constructor(private http: HttpClient) { }
 
   // Método para obtener películas en cartelera
   getNowPlaying(page: number = 1): Observable<MovieResponseModel> {
-    return this.http.get<MovieResponseModel>(`${this.apiUrl}/${environment.endpoints.movie}/${environment.endpoints.now_playing}?page=${page}`, this.httpOptions);
+    return this.http.get<MovieResponseModel>(`${this.apiUrl}/${environment.endpoints.movie}/${environment.endpoints.now_playing}?page=${page}`);
   }
 
 }

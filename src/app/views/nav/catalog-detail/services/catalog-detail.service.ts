@@ -10,16 +10,11 @@ import { MovieDetailModel } from '../../../../shared/interfaces/detail.movie.mod
 export class CatalogDetailService {
 
     private apiUrl = `${environment.apiBaseUrlMovie}`;
-    private httpOptions = {
-      headers: new HttpHeaders({
-        Authorization: environment.apiTokenMovie,
-      }),
-    };
 
     constructor(private http: HttpClient) { }
 
     // Método para obtener el detalle de una pelicula
     getMovieDetails(id: string): Observable<MovieDetailModel> {
-      return this.http.get<MovieDetailModel>(`${this.apiUrl}/${environment.endpoints.movie}/${id}`, this.httpOptions);
+      return this.http.get<MovieDetailModel>(`${this.apiUrl}/${environment.endpoints.movie}/${id}`);
     }
 }
