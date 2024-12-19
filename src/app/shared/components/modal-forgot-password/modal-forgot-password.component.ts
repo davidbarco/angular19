@@ -39,7 +39,6 @@ interface OutputData {
 export class ModalForgotPasswordComponent {
   spinner = signal(false);
   errorMessage = signal("");
-  hide = signal(true);
 
   form = new FormGroup({
     email: new FormControl("", [Validators.required, Validators.email]),
