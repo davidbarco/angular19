@@ -17,6 +17,7 @@ export const environment = {
   apiTokenMovie: 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmNjA2ZDE0MzcwZmIwNTc3Y2FiN2UzOGNkYTFmMDg0MSIsIm5iZiI6MTYzMjkzNDgwMi41MzUsInN1YiI6IjYxNTQ5YjkyZDIxNDdjMDA0NGRjOTEwYiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.Jw0Png11qNgzv9GQW3AclxrdqO0NT4iWyrJzTuMywjc',
   endpoints: {
     movie: "movie",
-    now_playing: "now_playing"
+    now_playing: "now_playing",
+    videos: "videos",
   }
 };

@@ -12,5 +12,10 @@
 
   <p class="mt-6 text-white">{{movie()?.overview}}</p>
 
+  <div class="mt-10">
+    <app-title style="font-size: 20px; font-weight: 500;" [title]="'Videos relacionados: ' + movieVideos()?.results?.length"></app-title>
+  </div>
+
+  <app-iframe-video-detail [videos]="movieVideos()"></app-iframe-video-detail>
 
 }

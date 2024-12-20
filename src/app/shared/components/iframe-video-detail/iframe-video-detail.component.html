@@ -1,0 +1,7 @@
+<div class="flex justify-around flex-wrap gap-10 w-full h-full">
+  @for(item of videos?.results; track item.id){
+  <iframe [src]="getSafeUrl(item.key)" autoplay>
+    Tu navegador no admite el elemento <code>video</code>.
+  </iframe>
+  }
+</div>

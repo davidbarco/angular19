@@ -7,15 +7,18 @@ import { finalize } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { SpinnerComponent } from "../../../shared/components/spinner/spinner.component";
 import { MovieDetailModel } from '../../../shared/interfaces/detail.movie.model';
+import { VideoResponse } from '../../../shared/interfaces/videosDetail.movie';
+import { IframeVideoDetailComponent } from "../../../shared/components/iframe-video-detail/iframe-video-detail.component";
 
 @Component({
   selector: 'app-catalog-detail',
-  imports: [TitleComponent, PosterDetailComponent, SpinnerComponent],
+  imports: [TitleComponent, PosterDetailComponent, SpinnerComponent, IframeVideoDetailComponent],
   templateUrl: './catalog-detail.component.html',
   styleUrl: './catalog-detail.component.css'
 })
 export class CatalogDetailComponent implements OnInit {
   movie = signal<MovieDetailModel | null>(null);
+  movieVideos = signal<VideoResponse | null>(null);
   spinner = signal(false);
 
   private route = inject(ActivatedRoute);
@@ -27,6 +30,7 @@ export class CatalogDetailComponent implements OnInit {
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
       this.loadMovieDetails(id);  // Realizar la consulta con el ID
+      this.loadVideosMovieDetail(id);
     }
   }
 
@@ -42,6 +46,22 @@ export class CatalogDetailComponent implements OnInit {
       },
       error: (error) => {
         console.error('Error fetching movie details:', error);
+      },
+    });
+  }
+
+  private loadVideosMovieDetail(id: string): void {
+    this.spinner.set(true);
+    this.catalogDetailService.getVideosMovieDetails(id).pipe(
+            finalize(() => this.spinner.set(false)),
+            takeUntilDestroyed(this._destroyRef)
+          ).subscribe({
+      next: (response) => {
+        //console.log(response);
+        this.movieVideos.set(response);
+      },
+      error: (error) => {
+        console.error('Error fetching movie videos details:', error);
       },
     });
   }
